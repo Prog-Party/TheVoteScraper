@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Tk, Label, Entry, Button, LabelFrame
 import requests
 import json
 
@@ -64,6 +64,9 @@ def dumpert_upvote(dumpertUrl):
     if not response_json["success"] and response_json["errors"][0] == "Vandaag dit item al kudos gegeven":
         raise Exception('Voting failed, {}'.format(response_json["errors"]))
     
+    my_gui.set_title_label(response_json["item"]["title"])
+    my_gui.set_description_label(response_json["item"]["description"])
+
     my_gui.set_kudos_today(response_json["item"]["stats"]["kudos_today"])
     my_gui.set_kudos_total(response_json["item"]["stats"]["kudos_total"])
     my_gui.set_views_today(response_json["item"]["stats"]["views_today"])
@@ -74,33 +77,45 @@ class UpVoterGUI:
         self.master = master
         master.title("The Dumpert Up Voter")
         master.geometry('600x600')
+        master.resizable(0,0)
         master.minsize(600, 600)
         master.maxsize(600, 600)
 
-        self.label = Label(master, fg = "blue",  font = "Helvetica 24 bold", text="Enter Dumpert url:")
+        self.label = Label(master, fg = "blue",  font = "Helvetica 24 bold", text="Enter Dumpert url")
         self.label.pack(pady = 5)
 
         self.url_entry = Entry(master, width = 50)
         self.url_entry.pack(pady = 30)
 
-        self.kudos_today_label = Label(master, fg = "blue", font = "Helvetica 16 bold", text="Kudos today")
+        self.labelframe_item = LabelFrame(master, text="Item")
+        self.labelframe_item.pack()
+
+        self.title_label = Label(self.labelframe_item, fg = "blue", font = "Helvetica 16 bold", text="")
+        self.title_label.pack()
+        self.description_label = Label(self.labelframe_item, font = "Helvetica 12 bold", text="")
+        self.description_label.pack()
+
+        self.labelframe = LabelFrame(master, text="Stats")
+        self.labelframe.pack()
+
+        self.kudos_today_label = Label(self.labelframe, fg = "blue", font = "Helvetica 16 bold", text="Kudos today")
         self.kudos_today_label.pack()
-        self.kudos_today_label_value = Label(master, font = "Helvetica 12 bold", text="-")
+        self.kudos_today_label_value = Label(self.labelframe, font = "Helvetica 12 bold", text="-")
         self.kudos_today_label_value.pack()
         
-        self.kudos_total_label = Label(master, fg = "blue", font = "Helvetica 16 bold",  text="Kudos total")
+        self.kudos_total_label = Label(self.labelframe, fg = "blue", font = "Helvetica 16 bold",  text="Kudos total")
         self.kudos_total_label.pack()
-        self.kudos_total_label_value = Label(master, font = "Helvetica 12 bold", text="-")
+        self.kudos_total_label_value = Label(self.labelframe, font = "Helvetica 12 bold", text="-")
         self.kudos_total_label_value.pack()
 
-        self.views_today_label = Label(master, fg = "blue", font = "Helvetica 16 bold", text="Views today")
+        self.views_today_label = Label(self.labelframe, fg = "blue", font = "Helvetica 16 bold", text="Views today")
         self.views_today_label.pack()
-        self.views_today_label_value = Label(master, font = "Helvetica 12 bold", text="-")
+        self.views_today_label_value = Label(self.labelframe, font = "Helvetica 12 bold", text="-")
         self.views_today_label_value.pack()
 
-        self.views_total_label = Label(master, fg = "blue", font = "Helvetica 16 bold", text="Views total")
+        self.views_total_label = Label(self.labelframe, fg = "blue", font = "Helvetica 16 bold", text="Views total")
         self.views_total_label.pack()
-        self.views_total_label_value = Label(master, font = "Helvetica 12 bold", text="-")
+        self.views_total_label_value = Label(self.labelframe, font = "Helvetica 12 bold", text="-")
         self.views_total_label_value.pack()
 
         self.greet_button = Button(master, font = "Helvetica 16 bold", text = "Vote UP!", bg = "#007acc", command = lambda: dumpert_upvote(self.url_entry.get()), height = 3, width = 20)
@@ -108,7 +123,13 @@ class UpVoterGUI:
 
         self.close_button = Button(master, text="Close", command = master.quit, height = 3, width = 15)
         self.close_button.pack()
+
+    def set_title_label(self, title_label):
+        self.title_label.configure(text = title_label)
     
+    def set_description_label(self, description_label):
+        self.description_label.configure(text = description_label)
+
     def set_kudos_today(self, kudos_today):
         self.kudos_today_label_value.configure(text = kudos_today)
 
