@@ -1,4 +1,5 @@
 ﻿using Knapcode.TorSharp;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -13,6 +14,7 @@ namespace VoteScraper.Scrape
         protected TorSharpSettings Settings { get; set; }
         protected TorSharpProxy Proxy { get; set; }
         protected HttpClientHandler Handler { get; set; }
+        protected HttpClientHandler TorHandler { get; set; }
 
         public ScrapeBase()
         {
@@ -21,15 +23,29 @@ namespace VoteScraper.Scrape
 
         public ScrapeBase(ScrapeBase scrapeBase)
         {
-            Cookies = scrapeBase.Cookies;
-            Settings = scrapeBase.Settings;
-            Proxy = scrapeBase.Proxy;
-            Handler = scrapeBase.Handler;
+            Cookies    = scrapeBase.Cookies;
+            Settings   = scrapeBase.Settings;
+            Proxy      = scrapeBase.Proxy;
+            Handler    = scrapeBase.Handler;
+            TorHandler = scrapeBase.TorHandler;
         }
 
-        public virtual async Task Initialize()
+        public virtual Task Initialize()
         {
-            // configure
+            Handler = new HttpClientHandler
+            {
+                //Proxy = new WebProxy(new Uri("http://145.239.85.58:9300")),
+                //Proxy = new WebProxy(new Uri("http://46.4.96.137:1080")),
+                Proxy = new WebProxy(new Uri("http://178.62.193.19:1080")),
+                UseProxy = true,
+                CookieContainer = Cookies
+            };
+
+            return InitializeTor();
+        }
+
+        private async Task InitializeTor()
+        {
             Settings = new TorSharpSettings
             {
                 ZippedToolsDirectory = Path.Combine(Path.GetTempPath(), "TorZipped"),
@@ -41,13 +57,13 @@ namespace VoteScraper.Scrape
             };
 
             // download tools
-            //await new TorSharpToolFetcher(Settings, new HttpClient()).FetchAsync();
+            await new TorSharpToolFetcher(Settings, new HttpClient()).FetchAsync();
 
-            //Proxy = new TorSharpProxy(Settings);
-            Handler = new HttpClientHandler
+            // execute
+            Proxy = new TorSharpProxy(Settings);
+            TorHandler = new HttpClientHandler
             {
-                //Proxy = new WebProxy(new Uri("http://localhost:" + Settings.PrivoxyPort)),
-                CookieContainer = Cookies
+                Proxy = new WebProxy(new Uri("http://localhost:" + Settings.PrivoxyPort))
             };
         }
     }
