@@ -1,5 +1,4 @@
 ﻿using Knapcode.TorSharp;
-using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -28,7 +27,7 @@ namespace VoteScraper.Scrape
             Handler = scrapeBase.Handler;
         }
 
-        public async Task Initialize()
+        public virtual async Task Initialize()
         {
             // configure
             Settings = new TorSharpSettings
@@ -42,28 +41,14 @@ namespace VoteScraper.Scrape
             };
 
             // download tools
-            await new TorSharpToolFetcher(Settings, new HttpClient()).FetchAsync();
+            //await new TorSharpToolFetcher(Settings, new HttpClient()).FetchAsync();
 
-            Proxy = new TorSharpProxy(Settings);
+            //Proxy = new TorSharpProxy(Settings);
             Handler = new HttpClientHandler
             {
-                Proxy = new WebProxy(new Uri("http://localhost:" + Settings.PrivoxyPort))
+                //Proxy = new WebProxy(new Uri("http://localhost:" + Settings.PrivoxyPort)),
+                CookieContainer = Cookies
             };
         }
-
-        //var baseAddress = new Uri("https://simplytranslate.s.xtrf.eu");
-        //var handler = new HttpClientHandler() { CookieContainer = _cookieJar };
-        //var client = new HttpClient(handler) { BaseAddress = baseAddress };
-
-        //var content = new FormUrlEncodedContent(new[]
-        //{
-        //        new KeyValuePair<string, string>("respondWithJSON", "true"),
-        //        new KeyValuePair<string, string>("j_username", "admin"),
-        //        new KeyValuePair<string, string>("j_password", "GCW1EI$5bIGm7iZbxX2o"),
-        //    });
-
-        //var result = client.PostAsync("/xtrf/j_spring_security_check", content).Result;
-        //result.EnsureSuccessStatusCode();
-        //    var response = result.Content;
     }
 }
