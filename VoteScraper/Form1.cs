@@ -11,12 +11,17 @@ namespace VoteScraper
             InitializeComponent();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void VoteUpButton_Click(object sender, EventArgs e)
         {
             await Task.Delay(1000);
             Console.WriteLine("TEST");
             await Task.Delay(1000);
             Console.WriteLine("TEST2");
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
