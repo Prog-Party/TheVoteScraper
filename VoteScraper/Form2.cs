@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using VoteScraper.Model;
 using VoteScraper.Utils;
@@ -67,6 +68,7 @@ namespace VoteScraper
             if(!ReadingIsStarted)
             {
                 ReadMouseClickiesButton.Text = "Stop muis lees klikjes";
+                Clipboard.SetText(DumpertUrlText.Text);
                 Actions = new List<ClickAction>();
                 MouseHook.MouseClickEvent += mh_MouseClickEvent;
                 Stopwatch.Reset();
@@ -82,7 +84,7 @@ namespace VoteScraper
             ReadingIsStarted = !ReadingIsStarted;
         }
 
-        private void ExecuteMouseClickies_Click(object sender, EventArgs e)
+        private async void ExecuteMouseClickies_Click(object sender, EventArgs e)
         {
             if (Actions == null)
             { 
@@ -90,7 +92,39 @@ namespace VoteScraper
                 return;
             }
 
-            //todo: Nog implementeren
+            var dumpertUrl = DumpertUrlText.Text;
+
+            if(string.IsNullOrWhiteSpace(dumpertUrl))
+            {
+                MessageBox.Show("Voer alsjeblieft een Dumpert URL in. Anders kan ik toch niet voor je voten! Mallerd.");
+                return;
+            }
+
+            Clipboard.SetText(dumpertUrl);
+
+            int count = 10;
+            do
+            {
+                int totalActions = Actions.Count;
+                for (int i = 0; i < totalActions; i++)
+                {
+                    var action = Actions[i];
+                    
+                    await Task.Delay(TimeSpan.FromMilliseconds(action.MilisecondsEllapsed));
+
+                    //skip the last action, where we press the stop button
+                    if(i == totalActions - 1)
+                    { continue; }
+
+                    MouseUtils.MoveToScreenCoordinate(action.X, action.Y);
+
+                    if (action.ButtonClicked == MouseButtons.Left)
+                        MouseUtils.LeftClick();
+                    else if(action.ButtonClicked == MouseButtons.Right)
+                        MouseUtils.RightClick();
+                }
+
+            } while (count-- > 0);
         }
 
         private void SaveMouseClickiesButton_Click(object sender, EventArgs e)

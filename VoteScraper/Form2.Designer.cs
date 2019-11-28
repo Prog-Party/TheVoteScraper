@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.MouseText = new System.Windows.Forms.TextBox();
+            this.DumpertUrlText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ReadMouseClickiesButton = new System.Windows.Forms.Button();
             this.ExecuteMouseClickiesButton = new System.Windows.Forms.Button();
@@ -38,27 +38,28 @@
             this.LoadMouseClickiesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // MouseText
+            // DumpertUrlText
             // 
-            this.MouseText.Location = new System.Drawing.Point(101, 93);
-            this.MouseText.Name = "MouseText";
-            this.MouseText.Size = new System.Drawing.Size(249, 31);
-            this.MouseText.TabIndex = 0;
+            this.DumpertUrlText.Location = new System.Drawing.Point(18, 120);
+            this.DumpertUrlText.Name = "DumpertUrlText";
+            this.DumpertUrlText.Size = new System.Drawing.Size(492, 31);
+            this.DumpertUrlText.TabIndex = 0;
+            this.DumpertUrlText.Text = "https://www.dumpert.nl/item/6855811_0c30d07e";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 93);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 25);
+            this.label1.Size = new System.Drawing.Size(141, 25);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Muis";
+            this.label1.Text = "Dumpert URL";
             // 
             // ReadMouseClickiesButton
             // 
             this.ReadMouseClickiesButton.Location = new System.Drawing.Point(12, 12);
             this.ReadMouseClickiesButton.Name = "ReadMouseClickiesButton";
-            this.ReadMouseClickiesButton.Size = new System.Drawing.Size(338, 69);
+            this.ReadMouseClickiesButton.Size = new System.Drawing.Size(404, 69);
             this.ReadMouseClickiesButton.TabIndex = 4;
             this.ReadMouseClickiesButton.Text = "Lees muis klikjes";
             this.ReadMouseClickiesButton.UseVisualStyleBackColor = true;
@@ -77,7 +78,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 154);
+            this.label2.Location = new System.Drawing.Point(13, 167);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(223, 25);
             this.label2.TabIndex = 6;
@@ -105,9 +106,9 @@
             // 
             // LoadMouseClickiesButton
             // 
-            this.LoadMouseClickiesButton.Location = new System.Drawing.Point(434, 93);
+            this.LoadMouseClickiesButton.Location = new System.Drawing.Point(533, 93);
             this.LoadMouseClickiesButton.Name = "LoadMouseClickiesButton";
-            this.LoadMouseClickiesButton.Size = new System.Drawing.Size(338, 69);
+            this.LoadMouseClickiesButton.Size = new System.Drawing.Size(239, 69);
             this.LoadMouseClickiesButton.TabIndex = 9;
             this.LoadMouseClickiesButton.Text = "Laad muis klikjes in";
             this.LoadMouseClickiesButton.UseVisualStyleBackColor = true;
@@ -125,7 +126,7 @@
             this.Controls.Add(this.ExecuteMouseClickiesButton);
             this.Controls.Add(this.ReadMouseClickiesButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.MouseText);
+            this.Controls.Add(this.DumpertUrlText);
             this.Name = "Form2";
             this.Text = "Muisklikjes automatiseren / The Vote Scraper";
             this.ResumeLayout(false);
@@ -135,7 +136,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox MouseText;
+        private System.Windows.Forms.TextBox DumpertUrlText;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button ReadMouseClickiesButton;
         private System.Windows.Forms.Button ExecuteMouseClickiesButton;

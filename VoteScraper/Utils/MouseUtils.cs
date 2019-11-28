@@ -29,7 +29,7 @@ namespace VoteScraper.Utils
             var outputX = inputXinPixels * 65535 / screenBounds.Width;
             var outputY = inputYinPixels * 65535 / screenBounds.Height;
 
-            MoveTo(outputX, outputY);
+            MoveTo(outputX/2, outputY/2);
         }
 
         public static void MoveTo(int x, int y)
