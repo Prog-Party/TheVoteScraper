@@ -13,6 +13,7 @@ namespace VoteScraper
         public List<ClickAction> Actions { get; set; }
         private bool ReadingIsStarted = false;
         private MouseHook MouseHook;
+        private GlobalKeyboardHook KeyboardHook;
         private Stopwatch Stopwatch = new Stopwatch();
 
         public Form2()
@@ -22,6 +23,17 @@ namespace VoteScraper
             //Utils.MouseUtils.MoveToScreenCoordinate(0,0);
             MouseHook = new MouseHook();
             MouseHook.SetHook();
+
+            KeyboardHook = new GlobalKeyboardHook();
+            KeyboardHook.KeyboardPressed += OnKeyPressed;
+        }
+
+        private void OnKeyPressed(object sender, GlobalKeyboardHookEventArgs e)
+        {
+            if(e.KeyboardData.Key == Keys.Escape)
+            {
+                this.Close();
+            }
         }
 
         private void mh_MouseClickEvent(object sender, MouseEventArgs e, bool? isUp)
@@ -79,6 +91,50 @@ namespace VoteScraper
             }
 
             //todo: Nog implementeren
+        }
+
+        private void SaveMouseClickiesButton_Click(object sender, EventArgs e)
+        {
+            if (Actions == null)
+            {
+                MessageBox.Show("Dit ging mis, dit ging helemaal mis. Je moet wel wat muis klikjes invoeren voordat je dit kan opslaan natuurlijk.");
+                return;
+            }
+
+            var jsonToSave = Newtonsoft.Json.JsonConvert.SerializeObject(Actions);
+
+            var saveFileDialog = new SaveFileDialog()
+            {
+                Filter = "Mouse Clickies json|*.json",
+                Title = "Sla muis klikjes op"
+            };
+            saveFileDialog.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog.FileName != "")
+            {
+                System.IO.File.WriteAllText(saveFileDialog.FileName, jsonToSave);
+            }
+        }
+
+        private void LoadMouseClickiesButton_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Mouse Clickies json|*.json",
+                Title = "Open muis klikjes"
+            };
+
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            // If the file name is not an empty string open it for saving.
+            if (openFileDialog.FileName != "")
+            {
+                var json = System.IO.File.ReadAllText(openFileDialog.FileName);
+                Actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
+                ShowActions();
+            }
         }
     }
 }

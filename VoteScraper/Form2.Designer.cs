@@ -34,6 +34,8 @@
             this.ExecuteMouseClickiesButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.LoadedMouseClickiesTextbox = new System.Windows.Forms.TextBox();
+            this.SaveMouseClickiesButton = new System.Windows.Forms.Button();
+            this.LoadMouseClickiesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // MouseText
@@ -64,7 +66,7 @@
             // 
             // ExecuteMouseClickiesButton
             // 
-            this.ExecuteMouseClickiesButton.Location = new System.Drawing.Point(450, 12);
+            this.ExecuteMouseClickiesButton.Location = new System.Drawing.Point(434, 722);
             this.ExecuteMouseClickiesButton.Name = "ExecuteMouseClickiesButton";
             this.ExecuteMouseClickiesButton.Size = new System.Drawing.Size(338, 69);
             this.ExecuteMouseClickiesButton.TabIndex = 5;
@@ -87,14 +89,37 @@
             this.LoadedMouseClickiesTextbox.Location = new System.Drawing.Point(18, 195);
             this.LoadedMouseClickiesTextbox.Multiline = true;
             this.LoadedMouseClickiesTextbox.Name = "LoadedMouseClickiesTextbox";
+            this.LoadedMouseClickiesTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.LoadedMouseClickiesTextbox.Size = new System.Drawing.Size(770, 521);
             this.LoadedMouseClickiesTextbox.TabIndex = 7;
+            // 
+            // SaveMouseClickiesButton
+            // 
+            this.SaveMouseClickiesButton.Location = new System.Drawing.Point(434, 12);
+            this.SaveMouseClickiesButton.Name = "SaveMouseClickiesButton";
+            this.SaveMouseClickiesButton.Size = new System.Drawing.Size(338, 69);
+            this.SaveMouseClickiesButton.TabIndex = 8;
+            this.SaveMouseClickiesButton.Text = "Sla muis klikjes op";
+            this.SaveMouseClickiesButton.UseVisualStyleBackColor = true;
+            this.SaveMouseClickiesButton.Click += new System.EventHandler(this.SaveMouseClickiesButton_Click);
+            // 
+            // LoadMouseClickiesButton
+            // 
+            this.LoadMouseClickiesButton.Location = new System.Drawing.Point(434, 93);
+            this.LoadMouseClickiesButton.Name = "LoadMouseClickiesButton";
+            this.LoadMouseClickiesButton.Size = new System.Drawing.Size(338, 69);
+            this.LoadMouseClickiesButton.TabIndex = 9;
+            this.LoadMouseClickiesButton.Text = "Laad muis klikjes in";
+            this.LoadMouseClickiesButton.UseVisualStyleBackColor = true;
+            this.LoadMouseClickiesButton.Click += new System.EventHandler(this.LoadMouseClickiesButton_Click);
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 728);
+            this.ClientSize = new System.Drawing.Size(800, 839);
+            this.Controls.Add(this.LoadMouseClickiesButton);
+            this.Controls.Add(this.SaveMouseClickiesButton);
             this.Controls.Add(this.LoadedMouseClickiesTextbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ExecuteMouseClickiesButton);
@@ -116,5 +141,7 @@
         private System.Windows.Forms.Button ExecuteMouseClickiesButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox LoadedMouseClickiesTextbox;
+        private System.Windows.Forms.Button SaveMouseClickiesButton;
+        private System.Windows.Forms.Button LoadMouseClickiesButton;
     }
 }

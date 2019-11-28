@@ -28,7 +28,7 @@ namespace VoteScraper.Model
             }
         }
 
-        public string LogText
+        internal string LogText
             => $"[x: {X}, y: {Y}] - {LogTextButton} - {LogTextTime}";
     }
 }
