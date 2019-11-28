@@ -36,8 +36,9 @@ namespace VoteScraper.Scrape
             {
                 //Proxy = new WebProxy(new Uri("http://145.239.85.58:9300")),
                 //Proxy = new WebProxy(new Uri("http://46.4.96.137:1080")),
-                Proxy = new WebProxy(new Uri("http://178.62.193.19:1080")),
-                UseProxy = true,
+                //Proxy = new WebProxy(new Uri("http://178.62.193.19:1080")),
+                //Proxy = new WebProxy(new Uri("http://83.77.118.53:17171")),
+                //UseProxy = true,
                 CookieContainer = Cookies
             };
 
