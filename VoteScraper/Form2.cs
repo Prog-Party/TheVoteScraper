@@ -102,7 +102,7 @@ namespace VoteScraper
 
             Clipboard.SetText(dumpertUrl);
 
-            int count = 10;
+            int count = 1;
             do
             {
                 int totalActions = Actions.Count;
@@ -123,8 +123,8 @@ namespace VoteScraper
                     else if(action.ButtonClicked == MouseButtons.Right)
                         MouseUtils.RightClick();
                 }
-
-            } while (count-- > 0);
+                CounterLabel.Text = "Votes: " + count;
+            } while (count++ < 5000);
         }
 
         private void SaveMouseClickiesButton_Click(object sender, EventArgs e)

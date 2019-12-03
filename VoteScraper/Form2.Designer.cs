@@ -36,6 +36,7 @@
             this.LoadedMouseClickiesTextbox = new System.Windows.Forms.TextBox();
             this.SaveMouseClickiesButton = new System.Windows.Forms.Button();
             this.LoadMouseClickiesButton = new System.Windows.Forms.Button();
+            this.CounterLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DumpertUrlText
@@ -114,11 +115,20 @@
             this.LoadMouseClickiesButton.UseVisualStyleBackColor = true;
             this.LoadMouseClickiesButton.Click += new System.EventHandler(this.LoadMouseClickiesButton_Click);
             // 
+            // CounterLabel
+            // 
+            this.CounterLabel.AutoSize = true;
+            this.CounterLabel.Location = new System.Drawing.Point(18, 734);
+            this.CounterLabel.Name = "CounterLabel";
+            this.CounterLabel.Size = new System.Drawing.Size(0, 25);
+            this.CounterLabel.TabIndex = 10;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 839);
+            this.Controls.Add(this.CounterLabel);
             this.Controls.Add(this.LoadMouseClickiesButton);
             this.Controls.Add(this.SaveMouseClickiesButton);
             this.Controls.Add(this.LoadedMouseClickiesTextbox);
@@ -144,5 +154,6 @@
         private System.Windows.Forms.TextBox LoadedMouseClickiesTextbox;
         private System.Windows.Forms.Button SaveMouseClickiesButton;
         private System.Windows.Forms.Button LoadMouseClickiesButton;
+        private System.Windows.Forms.Label CounterLabel;
     }
 }
