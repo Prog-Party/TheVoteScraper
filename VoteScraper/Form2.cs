@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,6 +28,7 @@ namespace VoteScraper
 
             KeyboardHook = new GlobalKeyboardHook();
             KeyboardHook.KeyboardPressed += OnKeyPressed;
+
         }
 
         private void OnKeyPressed(object sender, GlobalKeyboardHookEventArgs e)
