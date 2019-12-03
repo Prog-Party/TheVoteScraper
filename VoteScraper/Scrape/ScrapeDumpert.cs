@@ -30,9 +30,9 @@ namespace VoteScraper.Scrape
             Client.DefaultRequestHeaders.Connection.ParseAdd("keep-alive");
 
             TorClient = new HttpClient(TorHandler);
-            Client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/18.17763");
-            Client.DefaultRequestHeaders.Accept.ParseAdd("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-            Client.DefaultRequestHeaders.Connection.ParseAdd("keep-alive");
+            TorClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/18.17763");
+            TorClient.DefaultRequestHeaders.Accept.ParseAdd("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            TorClient.DefaultRequestHeaders.Connection.ParseAdd("keep-alive");
 
             await Proxy.ConfigureAndStartAsync();
         }
@@ -40,9 +40,9 @@ namespace VoteScraper.Scrape
         public async Task PlusKudo(string dumpertUrl)
         {
             DumpertUrl = dumpertUrl;
-            await AcceptCookies(Client);
+            await AcceptCookies(TorClient);
 
-            await DoVotePositive(Client);
+            await DoVotePositive(TorClient);
         }
 
         private async Task DoVotePositive(HttpClient client)
