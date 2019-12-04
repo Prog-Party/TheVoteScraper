@@ -37,11 +37,16 @@
             this.SaveMouseClickiesButton = new System.Windows.Forms.Button();
             this.LoadMouseClickiesButton = new System.Windows.Forms.Button();
             this.CounterLabel = new System.Windows.Forms.Label();
+            this.DumpertActiesLabel = new System.Windows.Forms.Label();
+            this.TorReloadLabel = new System.Windows.Forms.Label();
+            this.TorReloadButton = new System.Windows.Forms.Button();
+            this.TorCheckIpLabel = new System.Windows.Forms.Label();
+            this.TorCheckIpButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // DumpertUrlText
             // 
-            this.DumpertUrlText.Location = new System.Drawing.Point(18, 120);
+            this.DumpertUrlText.Location = new System.Drawing.Point(23, 40);
             this.DumpertUrlText.Name = "DumpertUrlText";
             this.DumpertUrlText.Size = new System.Drawing.Size(492, 31);
             this.DumpertUrlText.TabIndex = 0;
@@ -50,7 +55,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 93);
+            this.label1.Location = new System.Drawing.Point(18, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(141, 25);
             this.label1.TabIndex = 2;
@@ -58,7 +63,7 @@
             // 
             // ReadMouseClickiesButton
             // 
-            this.ReadMouseClickiesButton.Location = new System.Drawing.Point(12, 12);
+            this.ReadMouseClickiesButton.Location = new System.Drawing.Point(18, 93);
             this.ReadMouseClickiesButton.Name = "ReadMouseClickiesButton";
             this.ReadMouseClickiesButton.Size = new System.Drawing.Size(404, 69);
             this.ReadMouseClickiesButton.TabIndex = 4;
@@ -68,9 +73,9 @@
             // 
             // ExecuteMouseClickiesButton
             // 
-            this.ExecuteMouseClickiesButton.Location = new System.Drawing.Point(434, 722);
+            this.ExecuteMouseClickiesButton.Location = new System.Drawing.Point(565, 329);
             this.ExecuteMouseClickiesButton.Name = "ExecuteMouseClickiesButton";
-            this.ExecuteMouseClickiesButton.Size = new System.Drawing.Size(338, 69);
+            this.ExecuteMouseClickiesButton.Size = new System.Drawing.Size(335, 69);
             this.ExecuteMouseClickiesButton.TabIndex = 5;
             this.ExecuteMouseClickiesButton.Text = "Voer muis klikjes uit";
             this.ExecuteMouseClickiesButton.UseVisualStyleBackColor = true;
@@ -79,7 +84,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 167);
+            this.label2.Location = new System.Drawing.Point(18, 251);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(223, 25);
             this.label2.TabIndex = 6;
@@ -88,18 +93,18 @@
             // LoadedMouseClickiesTextbox
             // 
             this.LoadedMouseClickiesTextbox.Enabled = false;
-            this.LoadedMouseClickiesTextbox.Location = new System.Drawing.Point(18, 195);
+            this.LoadedMouseClickiesTextbox.Location = new System.Drawing.Point(23, 279);
             this.LoadedMouseClickiesTextbox.Multiline = true;
             this.LoadedMouseClickiesTextbox.Name = "LoadedMouseClickiesTextbox";
             this.LoadedMouseClickiesTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LoadedMouseClickiesTextbox.Size = new System.Drawing.Size(770, 521);
+            this.LoadedMouseClickiesTextbox.Size = new System.Drawing.Size(338, 341);
             this.LoadedMouseClickiesTextbox.TabIndex = 7;
             // 
             // SaveMouseClickiesButton
             // 
-            this.SaveMouseClickiesButton.Location = new System.Drawing.Point(434, 12);
+            this.SaveMouseClickiesButton.Location = new System.Drawing.Point(18, 168);
             this.SaveMouseClickiesButton.Name = "SaveMouseClickiesButton";
-            this.SaveMouseClickiesButton.Size = new System.Drawing.Size(338, 69);
+            this.SaveMouseClickiesButton.Size = new System.Drawing.Size(404, 69);
             this.SaveMouseClickiesButton.TabIndex = 8;
             this.SaveMouseClickiesButton.Text = "Sla muis klikjes op";
             this.SaveMouseClickiesButton.UseVisualStyleBackColor = true;
@@ -107,27 +112,80 @@
             // 
             // LoadMouseClickiesButton
             // 
-            this.LoadMouseClickiesButton.Location = new System.Drawing.Point(533, 93);
+            this.LoadMouseClickiesButton.Location = new System.Drawing.Point(565, 40);
             this.LoadMouseClickiesButton.Name = "LoadMouseClickiesButton";
-            this.LoadMouseClickiesButton.Size = new System.Drawing.Size(239, 69);
+            this.LoadMouseClickiesButton.Size = new System.Drawing.Size(335, 69);
             this.LoadMouseClickiesButton.TabIndex = 9;
-            this.LoadMouseClickiesButton.Text = "Laad muis klikjes in";
+            this.LoadMouseClickiesButton.Text = "Inladen: Dumpert Vote";
+            this.LoadMouseClickiesButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.LoadMouseClickiesButton.UseVisualStyleBackColor = true;
             this.LoadMouseClickiesButton.Click += new System.EventHandler(this.LoadMouseClickiesButton_Click);
             // 
             // CounterLabel
             // 
             this.CounterLabel.AutoSize = true;
-            this.CounterLabel.Location = new System.Drawing.Point(18, 734);
+            this.CounterLabel.Location = new System.Drawing.Point(37, 650);
             this.CounterLabel.Name = "CounterLabel";
-            this.CounterLabel.Size = new System.Drawing.Size(0, 25);
+            this.CounterLabel.Size = new System.Drawing.Size(85, 25);
             this.CounterLabel.TabIndex = 10;
+            this.CounterLabel.Text = "[Status]";
+            // 
+            // DumpertActiesLabel
+            // 
+            this.DumpertActiesLabel.AutoSize = true;
+            this.DumpertActiesLabel.Location = new System.Drawing.Point(928, 59);
+            this.DumpertActiesLabel.Name = "DumpertActiesLabel";
+            this.DumpertActiesLabel.Size = new System.Drawing.Size(0, 25);
+            this.DumpertActiesLabel.TabIndex = 11;
+            // 
+            // TorReloadLabel
+            // 
+            this.TorReloadLabel.AutoSize = true;
+            this.TorReloadLabel.Location = new System.Drawing.Point(928, 145);
+            this.TorReloadLabel.Name = "TorReloadLabel";
+            this.TorReloadLabel.Size = new System.Drawing.Size(0, 25);
+            this.TorReloadLabel.TabIndex = 13;
+            // 
+            // TorReloadButton
+            // 
+            this.TorReloadButton.Location = new System.Drawing.Point(565, 126);
+            this.TorReloadButton.Name = "TorReloadButton";
+            this.TorReloadButton.Size = new System.Drawing.Size(335, 69);
+            this.TorReloadButton.TabIndex = 12;
+            this.TorReloadButton.Text = "Inladen: Tor reload";
+            this.TorReloadButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TorReloadButton.UseVisualStyleBackColor = true;
+            this.TorReloadButton.Click += new System.EventHandler(this.TorReloadButton_Click);
+            // 
+            // TorCheckIpLabel
+            // 
+            this.TorCheckIpLabel.AutoSize = true;
+            this.TorCheckIpLabel.Location = new System.Drawing.Point(928, 229);
+            this.TorCheckIpLabel.Name = "TorCheckIpLabel";
+            this.TorCheckIpLabel.Size = new System.Drawing.Size(0, 25);
+            this.TorCheckIpLabel.TabIndex = 15;
+            // 
+            // TorCheckIpButton
+            // 
+            this.TorCheckIpButton.Location = new System.Drawing.Point(565, 210);
+            this.TorCheckIpButton.Name = "TorCheckIpButton";
+            this.TorCheckIpButton.Size = new System.Drawing.Size(335, 69);
+            this.TorCheckIpButton.TabIndex = 14;
+            this.TorCheckIpButton.Text = "Inladen: Check IP adres";
+            this.TorCheckIpButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TorCheckIpButton.UseVisualStyleBackColor = true;
+            this.TorCheckIpButton.Click += new System.EventHandler(this.TorCheckIpButton_Click);
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 839);
+            this.ClientSize = new System.Drawing.Size(1232, 1181);
+            this.Controls.Add(this.TorCheckIpLabel);
+            this.Controls.Add(this.TorCheckIpButton);
+            this.Controls.Add(this.TorReloadLabel);
+            this.Controls.Add(this.TorReloadButton);
+            this.Controls.Add(this.DumpertActiesLabel);
             this.Controls.Add(this.CounterLabel);
             this.Controls.Add(this.LoadMouseClickiesButton);
             this.Controls.Add(this.SaveMouseClickiesButton);
@@ -155,5 +213,10 @@
         private System.Windows.Forms.Button SaveMouseClickiesButton;
         private System.Windows.Forms.Button LoadMouseClickiesButton;
         private System.Windows.Forms.Label CounterLabel;
+        private System.Windows.Forms.Label DumpertActiesLabel;
+        private System.Windows.Forms.Label TorReloadLabel;
+        private System.Windows.Forms.Button TorReloadButton;
+        private System.Windows.Forms.Label TorCheckIpLabel;
+        private System.Windows.Forms.Button TorCheckIpButton;
     }
 }

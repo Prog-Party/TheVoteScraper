@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using VoteScraper.Model;
 using VoteScraper.Utils;
@@ -13,6 +11,9 @@ namespace VoteScraper
     public partial class Form2 : Form
     {
         public List<ClickAction> Actions { get; set; }
+
+        private DumpertVoteProtocol Protocol { get; set; }
+
         private bool ReadingIsStarted = false;
         private MouseHook MouseHook;
         private GlobalKeyboardHook KeyboardHook;
@@ -29,6 +30,12 @@ namespace VoteScraper
             KeyboardHook = new GlobalKeyboardHook();
             KeyboardHook.KeyboardPressed += OnKeyPressed;
 
+            Protocol = new DumpertVoteProtocol(this);
+        }
+
+        public void SetStatus(string status)
+        {
+            CounterLabel.Text = status;
         }
 
         private void OnKeyPressed(object sender, GlobalKeyboardHookEventArgs e)
@@ -88,45 +95,15 @@ namespace VoteScraper
 
         private async void ExecuteMouseClickies_Click(object sender, EventArgs e)
         {
-            if (Actions == null)
+            Protocol.DumpertUrl = DumpertUrlText.Text;
+
+            if (Protocol.IsReady())
             { 
-                MessageBox.Show("Dit ging mis, dit ging helemaal mis. Je moet wel wat muis klikjes invoeren voordat je dit kan uitvoeren natuurlijk.");
+                MessageBox.Show("Dit ging mis, dit ging helemaal mis. Je moet wel alle muis klikjes inladen voordat je dit kan uitvoeren natuurlijk.");
                 return;
             }
 
-            var dumpertUrl = DumpertUrlText.Text;
-
-            if(string.IsNullOrWhiteSpace(dumpertUrl))
-            {
-                MessageBox.Show("Voer alsjeblieft een Dumpert URL in. Anders kan ik toch niet voor je voten! Mallerd.");
-                return;
-            }
-
-            Clipboard.SetText(dumpertUrl);
-
-            int count = 1;
-            do
-            {
-                int totalActions = Actions.Count;
-                for (int i = 0; i < totalActions; i++)
-                {
-                    var action = Actions[i];
-                    
-                    await Task.Delay(TimeSpan.FromMilliseconds(action.MilisecondsEllapsed));
-
-                    //skip the last action, where we press the stop button
-                    if(i == totalActions - 1)
-                    { continue; }
-
-                    MouseUtils.MoveToScreenCoordinate(action.X, action.Y);
-
-                    if (action.ButtonClicked == MouseButtons.Left)
-                        MouseUtils.LeftClick();
-                    else if(action.ButtonClicked == MouseButtons.Right)
-                        MouseUtils.RightClick();
-                }
-                CounterLabel.Text = "Votes: " + count;
-            } while (count++ < 5000);
+            await Protocol.Start();
         }
 
         private void SaveMouseClickiesButton_Click(object sender, EventArgs e)
@@ -158,7 +135,7 @@ namespace VoteScraper
             var openFileDialog = new OpenFileDialog()
             {
                 Filter = "Mouse Clickies json|*.json",
-                Title = "Open muis klikjes"
+                Title = "Open Dumpert klikjes"
             };
 
             if (openFileDialog.ShowDialog() != DialogResult.OK)
@@ -167,9 +144,49 @@ namespace VoteScraper
             // If the file name is not an empty string open it for saving.
             if (openFileDialog.FileName != "")
             {
+                DumpertActiesLabel.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
                 var json = System.IO.File.ReadAllText(openFileDialog.FileName);
-                Actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
-                ShowActions();
+                Protocol.DumpertActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
+            }
+        }
+
+        private void TorReloadButton_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Mouse Clickies json|*.json",
+                Title = "Open Tor reload klikjes"
+            };
+
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            // If the file name is not an empty string open it for saving.
+            if (openFileDialog.FileName != "")
+            {
+                TorReloadLabel.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
+                var json = System.IO.File.ReadAllText(openFileDialog.FileName);
+                Protocol.TorReloadActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
+            }
+        }
+
+        private void TorCheckIpButton_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Mouse Clickies json|*.json",
+                Title = "Open Check IP klikjes"
+            };
+
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            // If the file name is not an empty string open it for saving.
+            if (openFileDialog.FileName != "")
+            {
+                TorCheckIpLabel.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
+                var json = System.IO.File.ReadAllText(openFileDialog.FileName);
+                Protocol.TorCheckIpActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
             }
         }
     }
