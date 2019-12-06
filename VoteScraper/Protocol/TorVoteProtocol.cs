@@ -6,9 +6,9 @@ using System.Windows.Forms;
 using VoteScraper.Model;
 using VoteScraper.Utils;
 
-namespace VoteScraper
+namespace VoteScraper.Protocol
 {
-    public class DumpertVoteProtocol
+    public class TorVoteProtocol
     {
         public List<ClickAction> DumpertActions { get; set; }
         public List<ClickAction> TorCheckIpActions { get; set; }
@@ -16,15 +16,13 @@ namespace VoteScraper
         public string DumpertUrl { get; set; }
         private Form2 Form { get; set; }
 
-        public DumpertVoteProtocol(Form2 form)
+        public TorVoteProtocol(Form2 form)
         {
             Form = form;
         }
 
         public bool IsReady()
             => DumpertActions?.Any() == true && 
-               TorCheckIpActions?.Any() == true &&
-                TorReloadActions?.Any() == true &&
                 !string.IsNullOrWhiteSpace(DumpertUrl);
 
         public async Task Start()

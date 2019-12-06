@@ -42,6 +42,9 @@
             this.TorReloadButton = new System.Windows.Forms.Button();
             this.TorCheckIpLabel = new System.Windows.Forms.Label();
             this.TorCheckIpButton = new System.Windows.Forms.Button();
+            this.ExecuteNordVpnClickies = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.NordVpnNextServerText = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // DumpertUrlText
@@ -51,6 +54,8 @@
             this.DumpertUrlText.Size = new System.Drawing.Size(492, 31);
             this.DumpertUrlText.TabIndex = 0;
             this.DumpertUrlText.Text = "https://www.dumpert.nl/item/6855811_0c30d07e";
+            this.DumpertUrlText.Click += new System.EventHandler(this.DumpertUrlText_Click);
+            this.DumpertUrlText.TextChanged += new System.EventHandler(this.DumpertUrlText_TextChanged);
             // 
             // label1
             // 
@@ -77,7 +82,7 @@
             this.ExecuteMouseClickiesButton.Name = "ExecuteMouseClickiesButton";
             this.ExecuteMouseClickiesButton.Size = new System.Drawing.Size(335, 69);
             this.ExecuteMouseClickiesButton.TabIndex = 5;
-            this.ExecuteMouseClickiesButton.Text = "Voer muis klikjes uit";
+            this.ExecuteMouseClickiesButton.Text = "Voer muis klikjes uit met Tor";
             this.ExecuteMouseClickiesButton.UseVisualStyleBackColor = true;
             this.ExecuteMouseClickiesButton.Click += new System.EventHandler(this.ExecuteMouseClickies_Click);
             // 
@@ -176,11 +181,41 @@
             this.TorCheckIpButton.UseVisualStyleBackColor = true;
             this.TorCheckIpButton.Click += new System.EventHandler(this.TorCheckIpButton_Click);
             // 
+            // ExecuteNordVpnClickies
+            // 
+            this.ExecuteNordVpnClickies.Location = new System.Drawing.Point(565, 419);
+            this.ExecuteNordVpnClickies.Name = "ExecuteNordVpnClickies";
+            this.ExecuteNordVpnClickies.Size = new System.Drawing.Size(335, 69);
+            this.ExecuteNordVpnClickies.TabIndex = 16;
+            this.ExecuteNordVpnClickies.Text = "Voer muis klikjes uit met Nord VPN";
+            this.ExecuteNordVpnClickies.UseVisualStyleBackColor = true;
+            this.ExecuteNordVpnClickies.Click += new System.EventHandler(this.ExecuteNordVpnClickies_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(28, 703);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(176, 25);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Nord VPN Server";
+            // 
+            // NordVpnNextServerText
+            // 
+            this.NordVpnNextServerText.Location = new System.Drawing.Point(33, 730);
+            this.NordVpnNextServerText.Name = "NordVpnNextServerText";
+            this.NordVpnNextServerText.Size = new System.Drawing.Size(492, 31);
+            this.NordVpnNextServerText.TabIndex = 17;
+            this.NordVpnNextServerText.Click += new System.EventHandler(this.NordVpnNextServerText_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 1181);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.NordVpnNextServerText);
+            this.Controls.Add(this.ExecuteNordVpnClickies);
             this.Controls.Add(this.TorCheckIpLabel);
             this.Controls.Add(this.TorCheckIpButton);
             this.Controls.Add(this.TorReloadLabel);
@@ -218,5 +253,8 @@
         private System.Windows.Forms.Button TorReloadButton;
         private System.Windows.Forms.Label TorCheckIpLabel;
         private System.Windows.Forms.Button TorCheckIpButton;
+        private System.Windows.Forms.Button ExecuteNordVpnClickies;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox NordVpnNextServerText;
     }
 }

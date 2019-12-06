@@ -12,12 +12,16 @@ namespace VoteScraper
     {
         public List<ClickAction> Actions { get; set; }
 
-        private DumpertVoteProtocol Protocol { get; set; }
-
         private bool ReadingIsStarted = false;
         private MouseHook MouseHook;
         private GlobalKeyboardHook KeyboardHook;
         private Stopwatch Stopwatch = new Stopwatch();
+
+        private List<ClickAction> DumpertActions;
+        private List<ClickAction> CheckIpActions;
+        private List<ClickAction> TorReloadActions;
+
+        private NordVpn.NordVpnController NordVpn { get; set; }
 
         public Form2()
         {
@@ -30,7 +34,9 @@ namespace VoteScraper
             KeyboardHook = new GlobalKeyboardHook();
             KeyboardHook.KeyboardPressed += OnKeyPressed;
 
-            Protocol = new DumpertVoteProtocol(this);
+
+            NordVpn = VoteScraper.NordVpn.NordVpnController.Initialize();
+            NordVpnNextServerText.Text = NordVpn.GetNext();
         }
 
         public void SetStatus(string status)
@@ -93,19 +99,6 @@ namespace VoteScraper
             ReadingIsStarted = !ReadingIsStarted;
         }
 
-        private async void ExecuteMouseClickies_Click(object sender, EventArgs e)
-        {
-            Protocol.DumpertUrl = DumpertUrlText.Text;
-
-            if (Protocol.IsReady())
-            { 
-                MessageBox.Show("Dit ging mis, dit ging helemaal mis. Je moet wel alle muis klikjes inladen voordat je dit kan uitvoeren natuurlijk.");
-                return;
-            }
-
-            await Protocol.Start();
-        }
-
         private void SaveMouseClickiesButton_Click(object sender, EventArgs e)
         {
             if (Actions == null)
@@ -146,7 +139,7 @@ namespace VoteScraper
             {
                 DumpertActiesLabel.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
                 var json = System.IO.File.ReadAllText(openFileDialog.FileName);
-                Protocol.DumpertActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
+                DumpertActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
             }
         }
 
@@ -166,7 +159,7 @@ namespace VoteScraper
             {
                 TorReloadLabel.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
                 var json = System.IO.File.ReadAllText(openFileDialog.FileName);
-                Protocol.TorReloadActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
+                TorReloadActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
             }
         }
 
@@ -186,8 +179,55 @@ namespace VoteScraper
             {
                 TorCheckIpLabel.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
                 var json = System.IO.File.ReadAllText(openFileDialog.FileName);
-                Protocol.TorCheckIpActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
+                CheckIpActions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClickAction>>(json);
             }
+        }
+
+        private async void ExecuteNordVpnClickies_Click(object sender, EventArgs e)
+        {
+            var protocol = new Protocol.NordVpnVoteProtocol(this);
+            protocol.DumpertActions = DumpertActions;
+            protocol.RenewIpActions = CheckIpActions;
+            protocol.DumpertUrl = DumpertUrlText.Text;
+
+            if (!protocol.IsReady())
+            {
+                MessageBox.Show("Dit ging mis, dit ging helemaal mis. Je moet wel alle muis klikjes inladen voordat je dit kan uitvoeren natuurlijk.");
+                return;
+            }
+
+            await protocol.Start();
+        }
+
+        private async void ExecuteMouseClickies_Click(object sender, EventArgs e)
+        {
+            var protocol = new Protocol.TorVoteProtocol(this);
+            protocol.DumpertActions = DumpertActions;
+            protocol.DumpertUrl = DumpertUrlText.Text;
+
+            if (!protocol.IsReady())
+            {
+                MessageBox.Show("Dit ging mis, dit ging helemaal mis. Je moet wel alle muis klikjes inladen voordat je dit kan uitvoeren natuurlijk.");
+                return;
+            }
+
+            await protocol.Start();
+        }
+
+        private void DumpertUrlText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DumpertUrlText_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(DumpertUrlText.Text);
+        }
+
+        private void NordVpnNextServerText_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(NordVpnNextServerText.Text);
+            NordVpnNextServerText.Text = NordVpn.GetNext();
         }
     }
 }
