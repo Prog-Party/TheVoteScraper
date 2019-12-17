@@ -15,6 +15,8 @@ namespace VoteScraper.Protocol
         public string DumpertUrl { get; set; }
         private Form2 Form { get; set; }
 
+        private bool IsBusy = false;
+
         public NordVpnVoteProtocol(Form2 form)
         {
             Form = form;
@@ -27,6 +29,7 @@ namespace VoteScraper.Protocol
 
         public async Task Start()
         {
+            IsBusy = true;
             Clipboard.SetText(DumpertUrl);
 
             int count = 1;
@@ -35,7 +38,12 @@ namespace VoteScraper.Protocol
                 await ExecuteActions(RenewIpActions);
                 await ExecuteActions(DumpertActions);
                 Form.SetStatus("Votes: " + count);
-            } while (count++ < 5000);
+            } while (count++ < 5000 && IsBusy);
+        }
+
+        public void Stop()
+        {
+            IsBusy = false;
         }
 
         private async Task ExecuteActions(List<ClickAction> actions)

@@ -23,9 +23,15 @@ namespace VoteScraper
 
         private NordVpn.NordVpnController NordVpn { get; set; }
 
+        Protocol.NordVpnVoteProtocol NordVpnProtocol;
+        Protocol.TorVoteProtocol TorVoteProtocol;
+
         public Form2()
         {
             InitializeComponent();
+
+            //DumpertUrlText.Text = "https://www.dumpert.nl/item/7803325_e71d8b7e";
+            DumpertUrlText.Text = "https://www.dumpert.nl/item/7806741_23a93e75";
 
             //Utils.MouseUtils.MoveToScreenCoordinate(0,0);
             MouseHook = new MouseHook();
@@ -37,6 +43,9 @@ namespace VoteScraper
 
             NordVpn = VoteScraper.NordVpn.NordVpnController.Initialize();
             NordVpnNextServerText.Text = NordVpn.GetNext();
+
+            NordVpnProtocol = new Protocol.NordVpnVoteProtocol(this);
+            TorVoteProtocol = new Protocol.TorVoteProtocol(this);
         }
 
         public void SetStatus(string status)
@@ -49,6 +58,11 @@ namespace VoteScraper
             if(e.KeyboardData.Key == Keys.Escape)
             {
                 this.Close();
+            }
+            if (e.KeyboardData.Key == Keys.Delete)
+            {
+                NordVpnProtocol.Stop();
+                TorVoteProtocol.Stop();
             }
         }
 
@@ -185,33 +199,31 @@ namespace VoteScraper
 
         private async void ExecuteNordVpnClickies_Click(object sender, EventArgs e)
         {
-            var protocol = new Protocol.NordVpnVoteProtocol(this);
-            protocol.DumpertActions = DumpertActions;
-            protocol.RenewIpActions = CheckIpActions;
-            protocol.DumpertUrl = DumpertUrlText.Text;
+            NordVpnProtocol.DumpertActions = DumpertActions;
+            NordVpnProtocol.RenewIpActions = CheckIpActions;
+            NordVpnProtocol.DumpertUrl = DumpertUrlText.Text;
 
-            if (!protocol.IsReady())
+            if (!NordVpnProtocol.IsReady())
             {
                 MessageBox.Show("Dit ging mis, dit ging helemaal mis. Je moet wel alle muis klikjes inladen voordat je dit kan uitvoeren natuurlijk.");
                 return;
             }
 
-            await protocol.Start();
+            await NordVpnProtocol.Start();
         }
 
         private async void ExecuteMouseClickies_Click(object sender, EventArgs e)
         {
-            var protocol = new Protocol.TorVoteProtocol(this);
-            protocol.DumpertActions = DumpertActions;
-            protocol.DumpertUrl = DumpertUrlText.Text;
+            TorVoteProtocol.DumpertActions = DumpertActions;
+            TorVoteProtocol.DumpertUrl = DumpertUrlText.Text;
 
-            if (!protocol.IsReady())
+            if (!TorVoteProtocol.IsReady())
             {
                 MessageBox.Show("Dit ging mis, dit ging helemaal mis. Je moet wel alle muis klikjes inladen voordat je dit kan uitvoeren natuurlijk.");
                 return;
             }
 
-            await protocol.Start();
+            await TorVoteProtocol.Start();
         }
 
         private void DumpertUrlText_TextChanged(object sender, EventArgs e)

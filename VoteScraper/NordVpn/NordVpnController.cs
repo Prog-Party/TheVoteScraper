@@ -14,9 +14,9 @@ namespace VoteScraper.NordVpn
         {
             var controller = new NordVpnController();
             var netherlands = new NordVpnServer("Netherlands");
-            //netherlands.AddServerNumbers(104, 108);
-            //netherlands.AddServerNumbers(112, 127);
-            netherlands.AddServerNumbers(120, 127);
+            netherlands.AddServerNumbers(104, 108);
+            netherlands.AddServerNumbers(112, 127);
+            //netherlands.AddServerNumbers(120, 127);
             netherlands.AddServerNumbers(265);
             netherlands.AddServerNumbers(352, 373);
             netherlands.AddServerNumbers(375, 376);
